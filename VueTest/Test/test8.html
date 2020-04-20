@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>摁键修饰符(不太会)</title>
+</head>
+<body>
+    <div id="app">
+        <input v-on:keyup.enter="submit"/>
+        {{msg}}
+        <button v-on:click="num++">+</button>        <button v-on:click="zengjia">增加</button>
+        <button v-on:click="num--">-</button>
+        <input type="text" v-on:keyup.13="num++" value="{{num}}}">
+    </div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script type="text/javascript">
+    var a = new Vue({
+        el:"#app",
+        data:{msg:""},
+        methods:{
+            submit(){
+                this.msg="submit"
+            }
+        }
+    })
+</script>

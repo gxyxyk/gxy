@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <button v-on:click="zengjia">增加</button>
+            {{num}}
+        <button v-on:click="decrement">减少</button>
+    </div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script type="text/javascript">
+    var a = new Vue({
+        el:"#app",
+        data:{
+            num:1
+        },methods:{
+            decrement(){
+                this.num--;
+            },
+            zengjia(){
+                this.num++;
+            }
+        }
+    })
+</script>

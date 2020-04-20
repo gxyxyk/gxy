@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        钩子函数值：{{hello}}
+    </div>
+</body>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script type="text/javascript">
+    var v = new Vue({
+            el:"#app",
+            data:{
+                hello:''
+            },
+            created(){
+                this.hello = "hello,world!";
+                console.log(this);
+            }
+    })
+</script>
+</html>

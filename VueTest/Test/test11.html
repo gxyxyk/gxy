@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width,initial-scale=1" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <title>v-else</title>
+</head>
+<body>
+    <div id="app">
+        <div v-if="Math.random()>0.5">
+            Now you see me
+        </div>
+        <div v-else>
+            Now you don't
+        </div>
+    </div>
+    <div id="app1">
+        <div v-if="type=='A'">
+            A
+        </div>
+        <div v-else-if="type=='B'">
+            B
+        </div>
+        <div v-else-if="type=='C'">
+            C
+        </div>
+        <div v-else>
+            Not A/B/C
+        </div>
+    </div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script type="text/javascript">
+    var a = new Vue({
+        el:"#app",
+    })
+    var a1 = new Vue({
+        el:"#app1",
+    })
+</script>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width,initial-scale=1" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <button v-on:click="show =!show ">点击切换</button>
+        <h1 v-if="show">
+            你好
+        </h1>
+    </div>
+    <div id="app1">
+        <h3>只含有女性的有标识的数组表格</h3>
+        <table class="table table-striped table-bordered text-center">
+            <tr v-for="(user,index) in users" v-if="user.gender=='女'">
+                <td>{{index+1}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.gender}}</td>
+                <td>{{user.age}}</td>
+            <tr/>
+        </table>
+    </div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script type="text/javascript">
+    var a = new Vue({
+        el:"#app",
+        data:{
+            show:true
+        }
+    })
+    var v = new Vue({
+        el:"#app1",
+        data:{
+            users:[
+                {name:'张三',gender:'男',age:22},
+                {name:'李四',gender:'女',age:33},
+                {name:'王五',gender:'男',age:21},
+                {name:'赵六',gender:'女',age:44}
+            ]
+        }
+    })
+</script>

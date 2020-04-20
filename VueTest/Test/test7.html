@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <a href="http://www.baidu.com" @click.prevent="say">百度</a>
+        {{msg}}
+    </div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script type="text/javascript">
+    var a = new Vue({
+        el:"#app",
+        data:{msg:""},
+        methods:{
+            say(){
+                this.msg="无法访问"
+            }
+        }
+    })
+</script>
