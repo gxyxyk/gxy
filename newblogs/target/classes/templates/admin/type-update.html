@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<title>Blog分类修改</title>
+		<link rel="stylesheet" type="text/css" href="../../css/menu.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" data-filtered="filtered">
+		<link rel="stylesheet" type="text/css" href="../../lib/editormd/css/editormd.css" />
+	</head>
+
+	<body>
+		<!--导航-->
+		<nav class="ui inverted segment attached m-padded-tb-mini m-shadow-small">
+			<div class="ui container">
+				<div class="ui inverted secondary menu stackable">
+					<h2 class="ui header teal item">Blog后台管理</h2>
+					<a href="/admin/blogs" class="item m-mobile-hide m-mobile-hides"><i class="home icon"></i>博客</a>
+					<a href="/admin/types" class="item m-mobile-hide m-mobile-hides active"><i class="idea icon"></i>分类</a>
+					<a href="/admin/tags" class="item m-mobile-hide m-mobile-hides"><i class="tags icon"></i>标签</a>
+					<div class="right menu m-mobile-hide m-mobile-hides">
+						<div class="ui dropdown item">
+							<div class="text" th:if="${user!=null}">
+								<img  th:src="${user.avatar}"  class="ui avatar image" /> <a href="/admin/blogs-index" style="color: white" th:text="${user.getNickname()}"></a>
+							</div>
+							<div class="text" th:if="${user==null}">
+								<img  class="ui avatar image" /><a href="/admin/">点击登录</a></span>
+							</div>
+							<i class="dropdown icon" th:if="${user!=null}"></i>
+							<div class="menu" th:if="${user!=null}">
+								<a href="/admin/logout"   class="item">注销</a>
+							</div>
+						</div>
+					</div>
+					<a href="#" id="top" class="ui black incon button m-right-top m-mobile-show"><i class="sidebar icon"></i></a>
+				</div>
+			</div>
+		</nav>
+		<!--二级导航-->
+		<!--中间内容-->
+		<div class="m-padded-tb-large m-container-small">
+			<div class="ui container">
+				<form action="/admin/typeupdate" class="ui form" method="post">
+					<div class="field">
+						<input type="hidden" name="id" th:value="${type.id}"/>
+						<div class="ui left labeled input">
+							<label class="ui teal basic label">类型名称</label>
+							<input type="text" name="name" th:value="${type.name}"/>
+						</div>
+					</div>
+					<div class="ui right aligned container">
+						<button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
+						<button class="ui teal button">提交</button>
+					</div>
+					<div class="ui error message"></div>
+					<div class="ui mini message negative messgesdispose" th:if="${messges!= ''}">
+						<!--下方注解添加后自动无视报错。-->
+						<!--/*@thymesVar id="messges" type="lrm"*/-->
+						<span th:text="${messges}"></span>
+					</div>
+				</form>
+			</div>
+		</div>
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js" data-filtered="filtered"></script>
+		<script src="../../lib/editormd/editormd.min.js"></script>
+	</body>
+	<script type="text/javascript">
+		$("#top").click(function() {
+			$(".m-mobile-hides").toggleClass('m-mobile-hide');
+		});
+		$('.ui.dropdown').dropdown({
+			on: 'hover'
+		});
+		$('.ui.form').form({
+			fields: {
+				name: {
+					identifier: 'name',
+					rules: [{
+						type: 'empty',
+						prompt: '提示：请输入添加类型'
+					}]
+				}
+			}
+		});
+		//初始化markdown编辑器
+		var testEditor;
+		$(function() {
+			testEditor = editormd("md-content", {
+				width: "100%",
+				height: 640,
+				syncScrolling: "single",
+				path: "../../lib/editormd/lib/"
+			});
+
+			/*
+			// or
+			testEditor = editormd({
+			    id      : "test-editormd",
+			    width   : "90%",
+			    height  : 640,
+			    path    : "../lib/"
+			});
+			*/
+		});
+	</script>
+</html>

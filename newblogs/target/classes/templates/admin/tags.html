@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<title>Blog标签管理</title>
+		<link rel="stylesheet" type="text/css" href="../../css/menu.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" data-filtered="filtered">
+	</head>
+
+	<body>
+		<!--导航-->
+		<nav class="ui inverted segment attached m-padded-tb-mini m-shadow-small">
+			<div class="ui container">
+				<div class="ui inverted secondary menu stackable">
+					<h2 class="ui header teal item">Blog后台管理</h2>
+					<a href="/admin/blogs" class="item m-mobile-hide m-mobile-hides"><i class="home icon"></i>博客</a>
+					<a href="/admin/types" class="item m-mobile-hide m-mobile-hides"><i class="idea icon"></i>分类</a>
+					<a href="/admin/tags" class="item m-mobile-hide m-mobile-hides active"><i class="tags icon"></i>标签</a>
+					<div class="right menu m-mobile-hide m-mobile-hides">
+						<div class="ui dropdown item">
+							<div class="text" th:if="${user!=null}">
+								<img  th:src="${user.avatar}"  class="ui avatar image" /> <a href="/admin/blogs-index" style="color: white" th:text="${user.getNickname()}"></a>
+							</div>
+							<div class="text" th:if="${user==null}">
+								<img  class="ui avatar image" /><a href="/admin/">点击登录</a></span>
+							</div>
+							<i class="dropdown icon" th:if="${user!=null}"></i>
+							<div class="menu" th:if="${user!=null}">
+								<a href="/admin/logout"   class="item">注销</a>
+							</div>
+						</div>
+					</div>
+					<a href="#" id="top" class="ui black incon button m-right-top m-mobile-show"><i class="sidebar icon"></i></a>
+				</div>
+			</div>
+		</nav>
+		<!--二级导航-->
+		<div class="ui attached pointing menu">
+			<div class="ui container">
+				<div class="right menu">
+					<a href="/admin/tags-input" class="item teal">添加</a>
+					<a href="/admin/tags" class="teal item active">列表</a>
+				</div>
+			</div>
+		</div>
+		<!--中间内容-->
+		<div class="m-padded-tb-large m-container-small">
+			<div class="ui container">
+				<div class="ui mini message success hint" th:if="${messges!= null}">
+					<!--下方注解添加后自动无视报错。-->
+					<!--/*@thymesVar id="messges" type="lrm"*/-->
+					<i class="close icon" onclick="hintclick()"></i>
+					<div class="header" th:text="'提示:'+${messges}"></div>
+					<p></p>
+				</div>
+				<table class="ui celled  table">
+					<thead>
+						<tr>
+							<th>编号</th>
+							<th>名称</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="taglist,tagStat:${tags.getList()}">
+							<td th:text="${tagStat.index+1}"></td>
+							<td th:text="${taglist.name}"></td>
+							<td>
+								<a th:href="@{/admin/tag-update(id=${taglist.id})}" class="ui mini teal button basic">编辑</a>
+								<a th:href="@{/admin/tag-delete(id=${taglist.id})}" class="ui mini red button basic">删除</a>
+							</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th colspan="6">
+								<div class="ui pagination menu mini" th:if="${tags.getPages()!=1}">
+									<a th:href="@{/admin/tags(page=${tags.pageNum}-1)}" class="item" th:if="${tags.pageNum!=1}">上一页</a>
+									<a th:href="@{/admin/tags(page=${tags.pageNum}+1)}"class="item" th:if="${tags.pageNum!=tags.pages}">下一页</a>
+								</div>
+								<a href="/admin/tags-input" class="ui right floated teal mini basic button">新增</a>
+							</th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js" data-filtered="filtered"></script>
+	</body>
+	<script type="text/javascript">
+		$("#top").click(function() {
+			$(".m-mobile-hides").toggleClass('m-mobile-hide');
+		});
+		$('.ui.dropdown').dropdown({
+			on: 'hover'
+		});
+		function hintclick() {
+			$(".hint").css("display","none")
+        }
+	</script>
+
+</html>

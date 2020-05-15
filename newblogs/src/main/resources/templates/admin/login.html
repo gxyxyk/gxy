@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<title>Blog管理-登录</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" data-filtered="filtered">
+		<style type="text/css">
+			body {
+				background-color: #DADADA!important;
+			}
+			body > .grid {
+				height: 100%;
+			}
+			.image {
+				margin-top: -100px;
+			}
+			.column {
+				max-width: 450px;
+			}
+		</style>
+	</head>
+	<br/>
+	<br/>
+	<br/>
+	<body>
+		<div class="center aligned" >
+			<div class="ui middle aligned center aligned grid">
+				<div class="column">
+					<h2 class="ui teal image header">
+						<div class="content">
+							blog后台管理
+						</div>
+					</h2>
+					<form class="ui large form" method="post" action="/admin/login">
+						<div class="ui segment">
+							<div class="field">
+								<div class="ui left icon input">
+									<i class="user icon"></i>
+									<input type="text" name="username" placeholder="请输入用户名">
+								</div>
+							</div>
+							<div class="field">
+								<div class="ui left icon input">
+									<i class="lock icon"></i>
+									<input type="password" name="password" placeholder="请输入密码">
+								</div>
+							</div>
+							<button class="ui fluid large teal submit button">登录</button>
+						</div>
+
+						<div class="ui error message"></div>
+						<div class="ui mini message negative messgesdispose" th:if="${messges!= ''}">
+							<!--下方注解添加后自动无视报错。-->
+							<!--/*@thymesVar id="messges" type="lrm"*/-->
+							<span th:text="${messges}"></span>
+						</div>
+					</form>
+
+					<div class="ui message">
+						是否注册? <a href="#">注册</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js" data-filtered="filtered"></script>
+	<script type="text/javascript">
+        $('.ui.form').form({
+            fields: {
+                username: {
+                    identifier: 'username',
+                    rules: [{
+                        type: 'empty',
+                        prompt: '提示：请输入用户名'
+                    }]
+                },
+                password: {
+                    identifier: 'password',
+                    rules: [{
+                        type: 'empty',
+                        prompt: '提示：请输入用户名'
+                    }]
+                }
+            }
+        });
+	</script>
+</html>

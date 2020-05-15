@@ -1,0 +1,5 @@
+spring:
+  profiles:
+    active: dev
+mybatis:
+  type-aliases-package: lrm.com.entity
