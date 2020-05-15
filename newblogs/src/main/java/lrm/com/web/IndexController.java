@@ -100,8 +100,9 @@ public class IndexController {
     }
     @RequestMapping("/blog/search")
     public String blogSearch(ModelMap modelMap, Comment comment,Integer bid){
-        if (comment.getRankid()==null||comment.getRankid()==0){
+        if (comment.getNickname()==null||comment.getNickname()==""){
             comment.setNickname("张三");
+            comment.setAvatar("https://unsplash.it/100/100?image=1005");
         }
         controllerService.addComment(comment);
         controllerService.addCb(bid,comment.getId());
