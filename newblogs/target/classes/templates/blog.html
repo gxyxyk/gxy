@@ -106,10 +106,10 @@
 							</div>
 						</div>
 					</div>
-					<div id="comment-container" class="ui bottom attached segment" th:if="${blog.conmentabled eq true}">
+					<div id="table-container" class="ui bottom attached segment" th:fragment="commentList" th:if="${blog.conmentabled eq true}">
 						<!--留言区域列表-->
-						<div class="ui teal segment" id="table-container">
-							<div class="ui comments"  th:fragment="commentList">
+						<div class="ui teal segment"  th:if="${blog.comments.size()>0}" id="comment-container">
+							<div class="ui comments">
 								<h3 class="ui dividing header">评论</h3>
 								<div class="comment" th:each="list:${blog.comments}">
 									<a class="avatar">
@@ -165,10 +165,15 @@
 								</div>
 							</div>
 						</div>
-                        <form action="#" method="post" class="ui form">
-                            <input type="hidden" name="bid" th:value="${blog.getId()}" id="bid">
-                            <input type="hidden" name="rankid" id="rankid">
-                            <div class="ui form">
+						<div class="ui mini message negative messgesdispose" th:if="${messges!= null}">
+							<!--下方注解添加后自动无视报错。-->
+							<!--/*@thymesVar id="messges" type="lrm"*/-->
+							<span th:text="${messges}"></span>
+						</div>
+                        <div >
+                            <form action="#" method="post" class="ui form">
+								<input type="hidden" name="bid" th:value="${blog.getId()}" id="bid">
+								<input type="hidden" name="rankid" id="rankid">
                                 <div class="field">
                                     <textarea name="content" id="pl" placeholder="请输入评论信息..."></textarea>
                                 </div>
@@ -195,9 +200,8 @@
                                         <button class="ui teal button m-mobile-wide" type="button" onclick="loaddata()"><i class="edit icon"></i>发布</button>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="ui error message"></div>
-                        </form>
+                            </form>
+                        </div>
 					</div>
 				</div>
 			</div>
@@ -320,18 +324,7 @@
         function reply(bid,namenike) {
             $("#rankid").val(bid);
             $("#pl").val("@"+namenike+":");
-        }
-        $('.ui.form').form({
-            fields: {
-                content: {
-                    identifier: 'content',
-                    rules: [{
-                        type: 'empty',
-                        prompt: '提示：请输入回复内容'
-                    }]
-                }
-            }
-        });
+        };
         function loaddata() {
 			$("#table-container").load("/blog/search",{
                 bid:$("[name='bid']").val(),

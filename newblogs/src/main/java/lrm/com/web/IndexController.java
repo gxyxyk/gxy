@@ -100,12 +100,26 @@ public class IndexController {
     }
     @RequestMapping("/blog/search")
     public String blogSearch(ModelMap modelMap, Comment comment,Integer bid){
-        if (comment.getNickname()==null||comment.getNickname()==""){
-            comment.setNickname("张三");
-            comment.setAvatar("https://unsplash.it/100/100?image=1005");
+        if(comment.getContent()==null||comment.getContent()==""){
+            controllerService.addComment(comment);
+            modelMap.addAttribute("messges","对不起请先输入回复内容");
+        }else{
+            modelMap.addAttribute("messge",null);
+            if (comment.getNickname()==null||comment.getNickname()==""){
+                comment.setNickname("张三");
+            }
+            if(comment.getAvatar()==""||comment.getAvatar()==null){
+                comment.setAvatar("https://unsplash.it/100/100?image=1005");
+            }
+            if(comment.getRankid()==null||comment.getRankid()==0){
+                comment.setRankid(0);
+            }
+            if (comment.getEmail()==null||comment.getEmail()==""){
+                comment.setEmail("");
+            }
+            controllerService.addComment(comment);
+            controllerService.addCb(bid,comment.getId());
         }
-        controllerService.addComment(comment);
-        controllerService.addCb(bid,comment.getId());
         modelMap.addAttribute("blog",blogService.blog(bid));
         return "blog :: commentList";
     }
